@@ -18,8 +18,6 @@ public class CartItem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int cartItemid;
 	@Column
-	private int userid;
-	private int productid;
 	private int quantity;
 	private float totalprice;
 	
@@ -28,6 +26,7 @@ public class CartItem {
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	private Product product;
+	
 	public int getCartid() {
 		return cartItemid;
 	}
@@ -51,18 +50,6 @@ public class CartItem {
 	}
 	public void setProduct(Product product) {
 		this.product = product;
-	}
-	public int getUserid() {
-		return userid;
-	}
-	public void setUserid(int userid) {
-		this.userid = userid;
-	}
-	public int getProductid() {
-		return productid;
-	}
-	public void setProductid(int productid) {
-		this.productid = productid;
 	}
 	public int getQuantity() {
 		return quantity;

@@ -1,6 +1,7 @@
 package com.niit.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,8 +27,9 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	
 	private int userid;
-	private String status;
+	
 	@Column
+	
 	@Size(min=4,message="Username length should be minimum character 4")
 	private String username;
 	//@Email(regexp="^[A-Z0-9._%+-]+@[A-Z0-9]+\\.[A-Z] {2,6}$",message="Email is invalid")
@@ -54,12 +56,6 @@ public class User {
 	public void setAuthority(String authority) {
 		this.authority = authority;
 	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
 	public String getPassword() {
 		return password;
 	}
@@ -78,25 +74,20 @@ public class User {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	public List<CartItem> getCartItems() {
+	public Set<CartItem> getCartItems() {
 		return cartItems;
 	}
-	public void setCartItems(List<CartItem> cartItems) {
-		this.cartItems = cartItems;
-	}
-	public List<Order> getOrders() {
+	public Set<Order> getOrders() {
 		return orders;
 	}
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
+	
 	@Embedded
 	private Address address;
 	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "user")
-	private List<CartItem> cartItems;
+	private Set<CartItem> cartItems;
 	
 	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "user")
-	private List<Order> orders;
+	private Set<Order> orders;
 	
 	
 	public int getUserid() {
@@ -116,6 +107,12 @@ public class User {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public void setCartItems(Set<CartItem> cartItems) {
+		this.cartItems = cartItems;
+	}
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
 	}
 	
 	

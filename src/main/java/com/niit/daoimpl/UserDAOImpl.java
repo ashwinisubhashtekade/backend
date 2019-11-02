@@ -16,11 +16,14 @@ import com.niit.model.User;
 @Transactional
 public class UserDAOImpl implements UserDAO {
 	
-	SessionFactory sessionFactory;
 	@Autowired
+	SessionFactory sessionFactory;
+	
 
 	public boolean addUser(User user) {
 		// TODO Auto-generated method stub
+		
+		user.setEnabled(true);
 		
 	sessionFactory.getCurrentSession().save(user);
 	return true;

@@ -1,18 +1,20 @@
 package com.niit.model;
 
-import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Product")
+@Table(name="Products")
 
 public class Product {
 	@Id
@@ -28,12 +30,21 @@ public class Product {
 	private String brand;
 	
 	@OneToMany(fetch=FetchType.EAGER)
-	private List<Order> orders;
+	private Set<Order> orders;
 	
 	
 	@OneToMany(fetch=FetchType.EAGER)
-	private List<CartItem> cartitems;
+	private Set<CartItem> cartitems;
 	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Category category;
+	
+	public Category getCategory() {
+		return category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 	public int getProductid() {
 		return productid;
 	}
@@ -55,16 +66,17 @@ public class Product {
 	public String getStatus() {
 		return status;
 	}
-	public List<Order> getOrders() {
+	
+	public Set<Order> getOrders() {
 		return orders;
 	}
-	public void setOrders(List<Order> orders) {
+	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
 	}
-	public List<CartItem> getCartitems() {
+	public Set<CartItem> getCartitems() {
 		return cartitems;
 	}
-	public void setCartitems(List<CartItem> cartitems) {
+	public void setCartitems(Set<CartItem> cartitems) {
 		this.cartitems = cartitems;
 	}
 	public void setStatus(String status) {

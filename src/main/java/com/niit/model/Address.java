@@ -9,7 +9,8 @@ public class Address {
 	private String state;
 	private String pincode;
 	
-	private String getCity() {
+	
+	public String getCity() {
 		return city;
 	}
 	public void setCity(String city) {

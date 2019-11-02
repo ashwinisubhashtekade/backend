@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "SubCategory")
+@Table(name = "SubCategories")
 
 
 public class SubCategory {

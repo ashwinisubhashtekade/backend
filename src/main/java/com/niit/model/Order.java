@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Order")
+@Table(name="Orders")
 
 public class Order {
 	@Id
@@ -31,6 +31,18 @@ public class Order {
 	private Product product;
 	
 	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
+	}
 	public int getOrderid() {
 		return orderid;
 	}

@@ -6,6 +6,7 @@ import javax.persistence.Query;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.niit.DAO.ProductDAO;
@@ -15,6 +16,7 @@ import com.niit.model.Product;
 @Transactional
 public class ProductDAOImpl implements ProductDAO
 {
+	@Autowired
 	SessionFactory sessionFactory;
 
 	public void addProduct(Product product) {
