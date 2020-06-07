@@ -1,5 +1,7 @@
+
 package com.niit.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,31 +14,41 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.stereotype.Repository;
 
 @Entity
 @Table(name="Products")
-
-public class Product {
+public class Product 
+{
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int productid;
 	@Column
 	private String productname;
 	private String description;
-	private String status;
-	private int quantity;
-	private float price;
 	private String brand;
+	private float price;
+	private int quantity;
+	private String status;
+	@Transient
+	private String imageurl;
 	
+	
+	public String getImageurl() {
+		return imageurl;
+	}
+	public void setImageurl(String imageurl) {
+		this.imageurl = imageurl;
+	}
 	@OneToMany(fetch=FetchType.EAGER)
 	private Set<Order> orders;
-	
 	
 	@OneToMany(fetch=FetchType.EAGER)
 	private Set<CartItem> cartitems;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL)
 	private Category category;
 	
 	public Category getCategory() {
@@ -44,6 +56,25 @@ public class Product {
 	}
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public Set<Order> getOrders() {
+		return orders;
+	}
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
+	}
+	public Set<CartItem> getCartitems() {
+		return cartitems;
+	}
+	public void setCartitems(Set<CartItem> cartitems) {
+		this.cartitems = cartitems;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	public int getProductid() {
 		return productid;
@@ -63,30 +94,11 @@ public class Product {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getStatus() {
-		return status;
+	public String getBrand() {
+		return brand;
 	}
-	
-	public Set<Order> getOrders() {
-		return orders;
-	}
-	public void setOrders(Set<Order> orders) {
-		this.orders = orders;
-	}
-	public Set<CartItem> getCartitems() {
-		return cartitems;
-	}
-	public void setCartitems(Set<CartItem> cartitems) {
-		this.cartitems = cartitems;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	public int getQuantity() {
-		return quantity;
-	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 	public float getPrice() {
 		return price;
@@ -94,10 +106,12 @@ public class Product {
 	public void setPrice(float price) {
 		this.price = price;
 	}
-	public String getBrand() {
-		return brand;
+	public int getQuantity() {
+		return quantity;
 	}
-	public void setBrand(String brand) {
-		this.brand = brand;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
+	
+	
 }

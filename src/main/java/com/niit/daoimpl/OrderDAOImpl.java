@@ -1,81 +1,59 @@
+
 package com.niit.daoimpl;
 
 import java.util.List;
 
-import org.hibernate.Transaction;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.niit.DAO.OrderDAO;
-import com.niit.dbconfig.DBConfig;
 import com.niit.model.Order;
-import com.niit.model.User;
 
-
-@Transactional  
-public class OrderDAOImpl implements OrderDAO {
-
-	Transaction tx;
-	public void addOrder(Order order) {
-		// TODO Auto-generated method stub
+@Transactional
+@Repository("orderDAO")
+public class OrderDAOImpl implements OrderDAO
+{
+	@Autowired
+	SessionFactory sessionFactory;
 	
-			
-		try
-		{
-			tx=DBConfig.getSession().beginTransaction();
-			DBConfig.getSession().save(order);
-			tx.commit();
-		
-		}
-		catch(Exception e)
-		{
+	public void addOrder(Order order) 
+	{
+		sessionFactory.getCurrentSession().save(order);
+	}
 
-			tx.rollback();	
-		}
-		}
+	public void cancelOrder(Order order) 
+	{
 		
-		
-	
-
-	public void cancelOrder(Order order) {
-		// TODO Auto-generated method stub
 		
 	}
 
-	public void updateOrder(Order order) {
-		// TODO Auto-generated method stub
+	public void updateOrder(Order order) 
+	{
+		sessionFactory.getCurrentSession().save(order);
+	}
+
+	public List<Order> displayOrders(Order order) 
+	{
 		try
 		{
-			tx=DBConfig.getSession().beginTransaction();
-			DBConfig.getSession().update(order);
-			tx.commit();
-		
+			//HQL - Hibernate Query Language
+			return sessionFactory.getCurrentSession().createQuery("from com.niit.model.Order").list();
 		}
-		catch(Exception e)
+		catch (Exception e) 
 		{
-
-			tx.rollback();
-			
+			return null;
 		}
-		
 	}
-		
-	
 
 	public List<Order> displayOrder(Order order) {
 		// TODO Auto-generated method stub
-		
-		try {
-			return DBConfig.getSession().createQuery("from com.niit.model.Order").list();
-			
-		} 
-		catch (Exception e)
-		{
-			// TODO: handle exception
-		}
 		return null;
 	}
 
-		
-	}
+}
+
+
 
 

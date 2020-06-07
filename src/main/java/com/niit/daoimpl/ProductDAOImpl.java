@@ -7,78 +7,96 @@ import javax.persistence.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.niit.DAO.ProductDAO;
-import com.niit.dbconfig.DBConfig;
 import com.niit.model.Product;
 
 @Transactional
+@Repository("productDAO")
 public class ProductDAOImpl implements ProductDAO
 {
 	@Autowired
 	SessionFactory sessionFactory;
-
-	public void addProduct(Product product) {
-		// TODO Auto-generated method stub
 	
-		sessionFactory.getCurrentSession().save(product);	
-		
+	public void addProduct(Product product) 
+	{
+		product.setStatus("A");
+		sessionFactory.getCurrentSession().save(product);
 	}
 
-	public void deleteProduct(Product product) {
-		// TODO Auto-generated method stub
-		
+	public void deleteProduct(Product product) 
+	{
 		sessionFactory.getCurrentSession().delete(product);
-		
 	}
 
-	public void updateProduct(Product product) {
-		// TODO Auto-generated method stub
-	
+	public void updateProduct(Product product) 
+	{
 		sessionFactory.getCurrentSession().update(product);
+	}
+
+	public List<Product> displayProducts()
+	{
+		try
+		{
+			//HQL - Hibernate Query Language
+			return sessionFactory.getCurrentSession().createQuery("from com.niit.model.Product").list();
+		}
+		catch (Exception e) 
+		{
+			return null;
+		}
+	}
+
+	public Product displayProductById(Product product)
+	{
+		try
+		{
+			 //positional arguments - ?
+			 //Named      arguments - :anyname
+			
+			 Query query=sessionFactory.getCurrentSession().createQuery("from com.niit.model.Product where productid= :productid");
+			 query.setParameter("productid", product.getProductid());
+			 return (Product)query.getResultList().get(0);
+		}
+		catch (Exception e) 
+		{
+			return null;
+		}
+	
+	}
+	public Product displayProductByName(Product product) 
+	{
+		try
+		{
+			 //positional arguments - ?
+			 //Named      arguments - :anyname
+			
+			 Query query=sessionFactory.getCurrentSession().createQuery("from com.niit.model.Product where productname= :productname");
+			 query.setParameter("productname", product.getProductname());
+			 return (Product)query.getResultList().get(0);
+		}
+		catch (Exception e) 
+		{
+			return null;
+		}
 		
 	}
 
-	public List<Product> displayProducts() {
+	public List<Product> displayProductByPriceAsc() {
 		// TODO Auto-generated method stub
-		try {
-			return sessionFactory.getCurrentSession().createQuery("from com.niit.model.Product").list();
-			
-		} 
-		catch (Exception e)
-		{
-			// TODO: handle exception
-		}
+		return null;
+	}
+
+	public List<Product> displayProductByPriceDesc() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Product> searchByName(String name) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 	
-
-	public Product displayProductById(Product product) {
-		// TODO Auto-generated method stub
-		try {
-			Query query=sessionFactory.getCurrentSession().createQuery("from com.niit.model.Product where productid= :productid");
-			query.setParameter("productid",product.getProductid());
-			return (Product)query.getResultList().get(0);
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return null;
-	}
-
-	public Product displayProductByName(Product product) {
-		// TODO Auto-generated method stub
-		try {
-			Query query=DBConfig.getSession().createQuery("from com.niit.model.Product where productname= :productname");
-			query.setParameter("productname",product.getProductname());
-			return (Product)query.getResultList().get(0);
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	
-		return null;
-	}
-
 }

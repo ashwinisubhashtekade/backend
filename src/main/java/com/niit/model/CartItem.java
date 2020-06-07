@@ -6,17 +6,18 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Repository;
+
 @Entity
 @Table(name="CartItems")
-
-public class CartItem {
+public class CartItem
+{
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int cartItemid;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int cartitemid;
 	@Column
 	private int quantity;
 	private float totalprice;
@@ -26,43 +27,52 @@ public class CartItem {
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	private Product product;
-	
-	public int getCartid() {
-		return cartItemid;
-	}
-	public void setCartid(int cartid) {
-		this.cartItemid = cartid;
-	}
-	public int getCartItemid() {
-		return cartItemid;
-	}
-	public void setCartItemid(int cartItemid) {
-		this.cartItemid = cartItemid;
-	}
+
 	public User getUser() {
 		return user;
 	}
+
 	public void setUser(User user) {
 		this.user = user;
 	}
+
 	public Product getProduct() {
 		return product;
 	}
+
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-	public int getQuantity() {
+
+	
+
+	public int getCartitemid() {
+		return cartitemid;
+	}
+
+	public void setCartitemid(int cartitemid) {
+		this.cartitemid = cartitemid;
+	}
+
+	public int getQuantity()
+	{
 		return quantity;
 	}
-	public void setQuantity(int quantity) {
+	
+	public void setQuantity(int quantity) 
+	{
 		this.quantity = quantity;
 	}
-	public float getTotalprice() {
+	
+	public float getTotalprice()
+	{
 		return totalprice;
 	}
-	public void setTotalprice(float totalprice) {
+	
+	public void setTotalprice(float totalprice)
+	{
 		this.totalprice = totalprice;
 	}
 	
-
+	
 }
